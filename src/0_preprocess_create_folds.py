@@ -19,16 +19,14 @@ for f in os.listdir("../input/train"):
 df = pd.DataFrame(input_data, columns=["image_id", "target"])
 
 # %% --------------------
-df.head()
-
-# %% --------------------
 le = LabelEncoder()
 df["target"] = le.fit_transform(df["target"])
 
 # %% --------------------
-print(le.classes_)  # ['red blood cell' 'ring' 'schizont' 'trophozoite']
+print(le.classes_)  # 'red blood cell'=0, 'ring'=1, 'schizont'=2, 'trophozoite'=3
 
 # %% --------------------
+# 90-10 split
 train, holdout = train_test_split(df, test_size=0.1, stratify=df["target"], random_state=42)
 
 # %% --------------------
