@@ -9,7 +9,7 @@ import tensorflow as tf
 # https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly
 class CustomImageGen(tf.keras.utils.Sequence):
 
-    def __init__(self, df, batch_size, base_dir, width=50, height=50, augmentations=[],
+    def __init__(self, df, batch_size, base_dir, width=100, height=100, augmentations=[],
                  shuffle=True):
         self.df = df.copy()
         self.batch_size = batch_size

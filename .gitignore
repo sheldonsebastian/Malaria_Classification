@@ -127,5 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-/slurm_stuff/
 /.idea/
+slurm/
+*.err
+*.sh
+*.out
+*.hdf5

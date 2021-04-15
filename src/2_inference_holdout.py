@@ -24,50 +24,65 @@ MODEL_SAVE_DIR = f"{BASE_DIR}/src/model_trainers/saved_models"
 IMAGE_SAVE_DIR = f"{BASE_DIR}/saved_images"
 
 # %% --------------------
-# approach = "manual"
-# approach = "random_search"
-approach = "optuna"
+# read the validation data
+valid = pd.read_csv(f"{DATA_DIR}/valid.csv")
 
-# %% --------------------
-# add models from different folds into a list
-estimators = [keras.models.load_model(f'{MODEL_SAVE_DIR}/{approach}_{fold}.hdf5') for fold in
-              [0]]
-# estimators = [keras.models.load_model(f'{BASE_DIR}/src/model_trainers/saved_models/mlp_ssebastian94.hdf5', compile=False)]
-
-# %% --------------------
 # read the holdout data
 holdout = pd.read_csv(f"{DATA_DIR}/holdout.csv")
 
 # %% --------------------
+valid_gen = CustomImageGen(valid, batch_size=len(holdout), base_dir=DATA_DIR + "/train")
 holdout_gen = CustomImageGen(holdout, batch_size=len(holdout), base_dir=DATA_DIR + "/train")
 
 # %% --------------------
+X_val, y_val = next(iter(valid_gen))
 X_holdout, y_holdout = next(iter(holdout_gen))
 
 # %% --------------------
-# predict for all folds
-all_fold_predictions = [fold_model.predict(X_holdout) for fold_model in estimators]
+for approach in ["manual", "random_search", "optuna"]:
+    print("-" * 20 + approach + "-" * 20)
 
-# take average for all folds
-ensembled_outputs = np.mean(all_fold_predictions, axis=0)
+    best_model = keras.models.load_model(f'{MODEL_SAVE_DIR}/{approach}.hdf5')
 
-# %% --------------------Evaluate ensembled models based on
-print("Holdout Evaluation::")
-# Holdout Data Evaluation Metrics
-y_pred = ensembled_outputs.argmax(axis=1)
-gt = y_holdout
+    # Validation Data Evaluation Metrics
+    print(f"Validation::")
 
-matrix = confusion_matrix(gt, y_pred)
-sns.heatmap(matrix, annot=True, cmap=sns.cm.rocket_r, fmt='g')
-plt.title("Holdout Confusion Matrix")
-plt.show()
+    y_pred = best_model.predict(X_val).argmax(axis=1)
+    gt = y_val
 
-print("Final accuracy on holdout set:", accuracy_score(gt, y_pred))
+    matrix = confusion_matrix(gt, y_pred)
+    sns.heatmap(matrix, annot=True, cmap=sns.cm.rocket_r, fmt='g')
+    plt.title(f"Validation")
+    plt.savefig(f"{BASE_DIR}/saved_images/{approach}_confusion_matrix_validation")
+    plt.close()
+    print(f"Final accuracy on validation:", accuracy_score(gt, y_pred))
 
-cohen_score = cohen_kappa_score(gt, y_pred)
-f1_score_value = f1_score(gt, y_pred, average="macro")
+    cohen_score = cohen_kappa_score(gt, y_pred)
+    f1_score_value = f1_score(gt, y_pred, average="macro")
 
-print("Cohen Kappa: ", cohen_score)
-print("F1 score: ", f1_score_value)
+    print(f"Cohen Kappa: ", cohen_score)
+    print(f"F1 score: ", f1_score_value)
 
-print("Final Mean Score: ", np.mean([cohen_score, f1_score_value]))
+    print(f"Final Mean Score: ", np.mean([cohen_score, f1_score_value]))
+
+    # Holdout Data Evaluation Metrics
+    print(f"Holdout::")
+
+    y_pred = best_model.predict(X_holdout).argmax(axis=1)
+    gt = y_holdout
+
+    matrix = confusion_matrix(gt, y_pred)
+    sns.heatmap(matrix, annot=True, cmap=sns.cm.rocket_r, fmt='g')
+    plt.title(f"Holdout")
+    plt.savefig(f"{BASE_DIR}/saved_images/{approach}_confusion_matrix_holdout")
+    plt.close()
+    print(f"Final accuracy on validation:", accuracy_score(gt, y_pred))
+
+    cohen_score = cohen_kappa_score(gt, y_pred)
+    f1_score_value = f1_score(gt, y_pred, average="macro")
+
+    print(f"Cohen Kappa: ", cohen_score)
+    print(f"F1 score: ", f1_score_value)
+
+    print(f"Final Mean Score: ", np.mean([cohen_score, f1_score_value]))
+    print("\n")

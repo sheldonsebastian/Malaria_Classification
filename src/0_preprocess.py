@@ -1,17 +1,27 @@
 # %% --------------------
+import sys
+
+# local
+BASE_DIR = "D:/GWU/3 Fall 2020/6203 Machine Learning 2/Exam 1/Repo/Malaria_Classification"
+# cerberus
+# BASE_DIR = "/home/ssebastian94/malaria_classification"
+
+# add home directory to python path
+sys.path.append(BASE_DIR)
+
+# %% --------------------
 import os
 
 import pandas as pd
-from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
 # %% --------------------PREPROCESSING
 # file name, target,
 input_data = []
-for f in os.listdir("../input/train"):
+for f in os.listdir(f"{BASE_DIR}/input/train"):
     if f[-3:] == "txt":
-        with open(f"../input/train/{f}") as s:
+        with open(f"{BASE_DIR}/input/train/{f}") as s:
             target = s.read()
         input_data.append({"image_id": f[:-4], "target": target})
 
@@ -37,24 +47,19 @@ print("Holdout target distribution percentage:")
 print(holdout["target"].value_counts() / len(holdout) * 100)
 
 # %% --------------------
-holdout.to_csv("../input/holdout.csv", index=False)
-
-# %% --------------------CREATE 5 FOLDS
-# create new column
-train["fold"] = -1
-
-# shuffle the dataframe
-train = train.sample(frac=1, random_state=42).reset_index(drop=True)
-
-# instantiate stratified kfolds
-kf = StratifiedKFold(n_splits=5)
-
-# add the fold to train column
-for fold, (_, val_index) in enumerate(kf.split(X=train, y=train["target"])):
-    train.loc[val_index, 'fold'] = fold
+holdout.to_csv(f"{BASE_DIR}/input/holdout.csv", index=False)
 
 # %% --------------------
-print(train["fold"].value_counts())
+# 90-20 split
+train, valid = train_test_split(train, test_size=0.2, stratify=train["target"], random_state=42)
 
 # %% --------------------
-train.to_csv("../input/train.csv", index=False)
+print("Train target distribution percentage:")
+print(train["target"].value_counts() / len(train) * 100)
+print()
+print("Validation target distribution percentage:")
+print(valid["target"].value_counts() / len(valid) * 100)
+
+# %% --------------------
+train.to_csv(f"{BASE_DIR}/input/train.csv", index=False)
+valid.to_csv(f"{BASE_DIR}/input/valid.csv", index=False)
