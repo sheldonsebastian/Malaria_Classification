@@ -53,7 +53,7 @@ for approach in ["manual", "random_search", "optuna"]:
     matrix = confusion_matrix(gt, y_pred)
     sns.heatmap(matrix, annot=True, cmap=sns.cm.rocket_r, fmt='g')
     plt.title(f"Validation")
-    plt.savefig(f"{BASE_DIR}/saved_images/{approach}_confusion_matrix_validation")
+    plt.savefig(f"{BASE_DIR}/docs/saved_images/{approach}_confusion_matrix_validation")
     plt.close()
     print(f"Final accuracy on validation:", accuracy_score(gt, y_pred))
 
@@ -74,7 +74,7 @@ for approach in ["manual", "random_search", "optuna"]:
     matrix = confusion_matrix(gt, y_pred)
     sns.heatmap(matrix, annot=True, cmap=sns.cm.rocket_r, fmt='g')
     plt.title(f"Holdout")
-    plt.savefig(f"{BASE_DIR}/saved_images/{approach}_confusion_matrix_holdout")
+    plt.savefig(f"{BASE_DIR}/docs/saved_images/{approach}_confusion_matrix_holdout")
     plt.close()
     print(f"Final accuracy on validation:", accuracy_score(gt, y_pred))
 

@@ -24,8 +24,7 @@ The goal of this project is to identify whether a red blood cell is healthy or i
     - MLP using random grid search hyper-parameter tuning
     - MLP using automatic hyper-parameter tuning using Optuna
 - Results & Analysis	
-- Conclusion
-- Future Work	
+- Conclusion & Future Work
 - References
 
 ## Introduction
@@ -173,15 +172,29 @@ The best parameters found were:
 
 ## Results & Analysis
 
-Scores and confusion matrices
+<div style="text-align: justify">
+As discussed previously, since the data is severely imbalanced an average of macro-F1 score and Cohen's Kappa score was used. The evaluation metric code can be found <a href = "https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/main/src/2_inference_holdout.py">here</a>. The summary of the results are as follows:
+</div>
 
-## Conclusion
+| Approach | Validation Accuracy | Holdout Accuracy | 
+|Manual| 0.94 | 0.92 |
+|Random Grid Search| 0.97 | 0.92 | 
+|Optuna| 0.94 | 0.92 |  
+
+
+<br>
+
+| Approach | Validation Mean of F1 and Cohen's Kappa Score | Holdout Mean of F1 and Cohen's Kappa Score | 
+|Manual| 0.70 | 0.718 |
+|Random Grid Search| 0.87 | 0.717 | 
+|Optuna| 0.70 | 0.716 | 
+
+
+
+## Conclusion and Future Work
 
 Best model and its parameters
 Approaches used and my experience with them
-
-## Future Work
-
 CNN
 Transfer learning
 
