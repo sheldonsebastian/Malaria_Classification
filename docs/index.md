@@ -41,7 +41,7 @@ The dataset was provided by <a href="https://www.linkedin.com/in/amir-jafari-phd
 <div style="text-align: justify">
 The exploratory data analysis jupyter notebook can be found <a href = "https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/main/src/1_eda.ipynb">here</a>. The distribution of the different categories can be seen in the below figure:
 </div>
-<center><img src="saved_images/figure_1.png"/></center>
+<center><img src="saved_images/figure1.png"/></center>
 <div style="text-align: justify">
 We see that the distribution of data is <i>severely imbalanced</i>, thus to evaluate our model accuracy is not the best metric. Instead we use <b>average of the macro-averaged F1-score and the Cohen’s Kappa score</b> for model evaluation.
 </div>
