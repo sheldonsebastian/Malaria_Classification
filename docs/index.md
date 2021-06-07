@@ -38,15 +38,49 @@ The dataset was provided by <a href="https://www.linkedin.com/in/amir-jafari-phd
 
 ## Exploratory Data Analysis
 
+<div style="text-align: justify">
+The exploratory data analysis jupyter notebook can be found <a href = "https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/main/src/1_eda.ipynb">here</a>. The distribution of the different categories can be seen in the below figure:
+</div>
+<center><img src="saved_images/figure_1.png"/></center>
+<div style="text-align: justify">
+We see that the distribution of data is <i>severely imbalanced</i>, thus to evaluate our model accuracy is not the best metric. Instead we use <b>average of the macro-averaged F1-score and the Cohen’s Kappa score</b> for model evaluation.
+</div>
 
+<div style="text-align: justify">
+A few example images for healthy red blood cells are shown:
+</div>
+<center><img src="saved_images/rbc.png"/></center>
 
-## Modeling and Evaluation Metric
+<div style="text-align: justify">
+A few example images for ring infected cells are shown:
+</div>
+<center><img src="saved_images/ring.png"/></center>
+
+<div style="text-align: justify">
+A few example images for schizont infected cells are shown:
+</div>
+<center><img src="saved_images/schizont.png"/></center>
+
+<div style="text-align: justify">
+A few example images for trophozite infected cells are shown:
+</div>
+<center><img src="saved_images/trophozite.png"/></center>
+
+## Modeling
+
+...
 
 ## Results & Analysis
 
+...
+
 ## Conclusion
 
+...
+
 ## Future Work
+
+...
 
 ## References
 1. https://www.cdc.gov/parasites/malaria/index.html
