@@ -46,21 +46,25 @@ The exploratory data analysis jupyter notebook can be found <a href = "https://g
 We see that the distribution of data is <i>severely imbalanced</i>, thus to evaluate our model accuracy is not the best metric. Instead we use <b>average of the macro-averaged F1-score and the Cohen’s Kappa score</b> for model evaluation.
 </div>
 
+<br>
 <div style="text-align: justify">
 A few example images for healthy red blood cells are shown:
 </div>
 <center><img src="saved_images/rbc.png"/></center>
 
+<br>
 <div style="text-align: justify">
 A few example images for ring infected cells are shown:
 </div>
 <center><img src="saved_images/ring.png"/></center>
 
+<br>
 <div style="text-align: justify">
 A few example images for schizont infected cells are shown:
 </div>
 <center><img src="saved_images/schizont.png"/></center>
 
+<br>
 <div style="text-align: justify">
 A few example images for trophozite infected cells are shown:
 </div>
