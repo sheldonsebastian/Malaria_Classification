@@ -79,6 +79,7 @@ A few example images for trophozite infected cells are shown:
 After the data was split into train-validation-holdout, MLP model was created and hyper-parameter tuning was performed using manual search, random grid search and automatically using Optuna.<br><br> Since the data was severely imbalanced the model evaluation metric was average of the macro-averaged F1-score<sup>[3]</sup> and the Cohen’s Kappa score<sup>[4]</sup>. To handle class imbalance all the three approaches (manual, random-grid, optuna) used class weights inversely proportional to their occurrence frequency. <br><br> A custom keras image generator<sup>[5]</sup> was used to read the images and labels. The generator performed random brightness and flip augmentation on training images to prevent model overfitting using albumentations<sup>[6]</sup> package. The image generator read the png files using OpenCV<sup>[7]</sup>, performed augmentations for training data, normalized the image by dividing by 255 and finally convert to numpy array.       
 </div>
 
+<br>
 
 ### MLP using manual hyper-parameter tuning:
 
@@ -98,10 +99,12 @@ The code for manual MLP can be found <a href="https://github.com/sheldonsebastia
 | Batch Size | 1024 |
 | Early Stopping, Batch Normalization, Dropout, Model Checkpoint | Yes |
 
+<br>
+
 ### MLP using random grid search hyper-parameter tuning:
 
 <div style="text-align: justify">
-The code for random grid search MLP can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/main/src/model_trainers/1_random_search.py">here</a> and model architecture can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/9dd3e0afe27e0693bffe3035eb8e3c81fee1b0b1/src/model_trainers/model_dispatcher.py#L31">here</a>. To perform random grid search for the keras model, it was wrapped in a scikit layer using KerasClassifier<sup>[8]</sup>.<br><br> The evaluation metric used was average of F1 score and Cohen Kappa's score and the code for that can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/9dd3e0afe27e0693bffe3035eb8e3c81fee1b0b1/src/common/utilities.py#L8">here</a>. Since we are performing random grid search, we used <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/9dd3e0afe27e0693bffe3035eb8e3c81fee1b0b1/src/common/utilities.py#L16">predefined split</a> to prevents data leakage among multiple runs. A summary of the model and training is shown in below table:
+The code for random grid search MLP can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/main/src/model_trainers/1_random_search.py">here</a> and model architecture can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/9dd3e0afe27e0693bffe3035eb8e3c81fee1b0b1/src/model_trainers/model_dispatcher.py#L31">here</a>. To perform random grid search for the keras model, it was wrapped in a scikit layer using KerasClassifier<sup>[8]</sup>. The evaluation metric used was average of F1 score and Cohen Kappa's score and the code for that can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/9dd3e0afe27e0693bffe3035eb8e3c81fee1b0b1/src/common/utilities.py#L8">here</a>. Since we are performing random grid search, we used <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/9dd3e0afe27e0693bffe3035eb8e3c81fee1b0b1/src/common/utilities.py#L16">predefined split</a> to prevents data leakage among multiple runs. <br><br> A summary of the model and training is shown in below table:
 </div>
 
 | Attribute | Value |
@@ -117,6 +120,8 @@ The code for random grid search MLP can be found <a href="https://github.com/she
 |Epochs| 300, 600, 1000 |
 |Iterations| 25 |
 
+<br>
+
 The best parameters found were:
 
 | Attribute | Value |
@@ -131,23 +136,58 @@ The best parameters found were:
 |Batch Size| 64 |
 |Epochs| 1000 |
 
+<br>
+
 ### MLP using automatic hyper-parameter tuning using Optuna:
 
 <div style="text-align: justify">
-
+To automatically find the best parameters for MLP optuna with tensorflow-keras integration<sup>[9]</sup> was used. The training code can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/main/src/model_trainers/2_hyper_optimizer.py">here</a>. For Optuna we need to create an objective function that needs to be minimized, here the objective function was validation loss. After the objective function is defined, we create study and perform trials. The details of model architecture and suggested trial values can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/98f366e80feca49e45085718709c465b72953a1b/src/model_trainers/model_dispatcher.py#L52">here</a>. A total of 300 trials were performed and early stopping and pruning was used to stop trials which were not giving promising results. <br><br> A summary of the model and training is shown in below table:
 </div>
+
+| Attribute | Value |
+| ---------| -----------|
+| Number of hidden layers| 1-5 |
+| Number of neurons per layer| Between 1 and 2048 |
+| Activation Function| relu, selu, elu |
+| Loss| sparse categorical cross entropy |
+| Optimizer | Adam |
+| Learning Rate | Log Uniform distribution between 1e-6 and 1e-3 |
+|Dropout probability| 0.0, 0.1, 0.2, 0.3, 0.4, 0.5 |
+|Batch Size| 32-1024 |
+|Epochs| 5000 |
+|Early Stopping, PruningCallBack| Yes |
+| Trials | 300 |
+
+<br>
+
+The best parameters found were:
+
+| Attribute | Value |
+| ---------| -----------|
+| Number of hidden layers| 3 |
+| Number of neurons per layer| Layer1: 2003, Layer2: 810, Layer3: 1776 |
+| Activation Function| elu |
+| Loss| sparse categorical cross entropy |
+| Optimizer | Adam |
+| Learning Rate | 1.1785925256981173e-06 |
+|Dropout probability| 0.3 |
+|Batch Size| 374 |
+
+<br>
 
 ## Results & Analysis
 
-...
+Scores and confusion matrices
 
 ## Conclusion
 
-...
+Best model and its parameters
+Approaches used and my experience with them
 
 ## Future Work
 
-...
+CNN
+Transfer learning
 
 ## References
 1. https://www.cdc.gov/parasites/malaria/index.html
@@ -158,4 +198,4 @@ The best parameters found were:
 6. https://albumentations.ai/
 7. https://opencv.org/
 8. https://www.tensorflow.org/api_docs/python/tf/keras/wrappers/scikit_learn/KerasClassifier
-9. 
+9. https://github.com/optuna/optuna/blob/master/examples/tfkeras/tfkeras_integration.py
