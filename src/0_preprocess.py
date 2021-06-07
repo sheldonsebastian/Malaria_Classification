@@ -50,7 +50,7 @@ print(holdout["target"].value_counts() / len(holdout) * 100)
 holdout.to_csv(f"{BASE_DIR}/input/holdout.csv", index=False)
 
 # %% --------------------
-# 90-20 split
+# 80-20 split
 train, valid = train_test_split(train, test_size=0.2, stratify=train["target"], random_state=42)
 
 # %% --------------------
