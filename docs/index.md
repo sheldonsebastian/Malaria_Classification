@@ -170,10 +170,10 @@ The best parameters found were:
 
 <br>
 
-## Results & Analysis
+## Results
 
 <div style="text-align: justify">
-As discussed previously, since the data is severely imbalanced an average of macro-F1 score and Cohen's Kappa score was used. The evaluation metric code can be found <a href = "https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/main/src/2_inference_holdout.py">here</a>. The summary of the results are as follows:
+As discussed previously, since the data is severely imbalanced an <i>average of macro-F1 score and Cohen's Kappa score</i> was used. The evaluation metric code can be found <a href = "https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/main/src/2_inference_holdout.py">here</a>. The summary of the results are as follows:
 </div>
 
 | Approach | Validation Accuracy | Holdout Accuracy | 
@@ -189,7 +189,21 @@ As discussed previously, since the data is severely imbalanced an average of mac
 |Random Grid Search| 0.87 | 0.717 | 
 |Optuna| 0.70 | 0.716 | 
 
+<br>
 
+The confusion matrix for <b>holdout set</b> are as follows:
+
+1. Manual MLP
+
+<center><img src="saved_images/manual_confusion_matrix_holdout.png"/></center>
+
+2. Random Grid Search MLP
+
+<center><img src="saved_images/random_search_confusion_matrix_holdout.png"/></center>
+
+3. Optuna MLP
+
+<center><img src="saved_images/optuna_confusion_matrix_holdout.png"/></center>
 
 ## Conclusion and Future Work
 
