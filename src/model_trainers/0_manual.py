@@ -21,10 +21,10 @@ from tensorflow.keras.models import load_model
 from src.common.image_generator import CustomImageGen
 from src.model_trainers.model_dispatcher import model_v1
 import albumentations as A
+import os
 
 # %% --------------------DIRECTORIES
 DATA_DIR = f"{BASE_DIR}/input"
-IMAGE_SAVE_DIR = f"{BASE_DIR}/saved_images"
 
 # %% --------------------
 # read all data
@@ -104,9 +104,11 @@ plt.plot(history.history["val_loss"], label="Validation Loss")
 plt.plot(history.history["loss"], label="Training Loss")
 plt.legend()
 plt.title(f"Manual ANN")
-plt.savefig(f"{BASE_DIR}/saved_images/manual_loss")
 plt.close()
 
 # %% --------------------
+# create save model directory
+os.makedirs(f'{BASE_DIR}/src/model_trainers/saved_models/', exist_ok=True)
+
 # load best model
 best_model = load_model(f'{BASE_DIR}/src/model_trainers/saved_models/manual.hdf5')

@@ -72,7 +72,26 @@ A few example images for trophozite infected cells are shown:
 
 ## Modeling
 
-...
+<div style="text-align: justify">
+After the data was split into train-validation-holdout, MLP model was created and hyper-parameter tuning was performed using manual search, random grid search and automatically using Optuna.<br><br> Since the data was severely imbalanced the model evaluation metric was average of the macro-averaged F1-score<sup>[3]</sup> and the Cohen’s Kappa score<sup>[4]</sup>. To handle class imbalance all the three approaches (manual, random-grid, optuna) used class weights inversely proportional to their occurrence frequency. <br><br> A custom keras image generator<sup>[5]</sup> was used to read the images and labels. The generator performed random brightness and flip augmentation on training images to prevent model overfitting using albumentations<sup>[6]</sup> package. <br><br>The image generator read the png files using OpenCV<sup>[7]</sup>, performed augmentations for training data, normalized the image by dividing by 255 and finally convert to numpy array.       
+</div>
+
+
+### MLP using manual hyper-parameter tuning:
+
+<div style="text-align: justify">
+
+</div>
+
+### MLP using random grid search hyper-parameter tuning:
+
+<div style="text-align: justify">
+</div>
+
+### MLP using automatic hyper-parameter tuning using Optuna:
+
+<div style="text-align: justify">
+</div>
 
 ## Results & Analysis
 
@@ -89,3 +108,8 @@ A few example images for trophozite infected cells are shown:
 ## References
 1. https://www.cdc.gov/parasites/malaria/index.html
 2. https://optuna.org/
+3. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html
+4. https://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html
+5. https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly
+6. https://albumentations.ai/
+7. https://opencv.org/

@@ -24,10 +24,10 @@ import pandas as pd
 from sklearn.utils import class_weight
 from src.common.image_generator import CustomImageGen
 import albumentations as A
+import os
 
 # %% --------------------DIRECTORIES
 DATA_DIR = f"{BASE_DIR}/input"
-IMAGE_SAVE_DIR = f"{BASE_DIR}/saved_images"
 
 # %% --------------------
 # read all data
@@ -142,6 +142,9 @@ print(rnd_search_cv.best_score_)
 # %% --------------------
 # get best model
 best_model = rnd_search_cv.best_estimator_.model
+
+# create save model directory
+os.makedirs(f'{BASE_DIR}/src/model_trainers/saved_models/', exist_ok=True)
 
 # save best model
 save_model(best_model, f"{BASE_DIR}/src/model_trainers/saved_models/random_search.hdf5")
