@@ -19,7 +19,10 @@ The goal of this project is to identify whether a red blood cell is healthy or i
 - Introduction
 - Dataset Description and Data Preprocessing	
 - Exploratory Data Analysis
-- Modeling and Evaluation Metric
+- Modeling
+    - MLP using manual hyper-parameter tuning
+    - MLP using random grid search hyper-parameter tuning
+    - MLP using automatic hyper-parameter tuning using Optuna
 - Results & Analysis	
 - Conclusion
 - Future Work	
@@ -98,10 +101,35 @@ The code for manual MLP can be found <a href="https://github.com/sheldonsebastia
 ### MLP using random grid search hyper-parameter tuning:
 
 <div style="text-align: justify">
-
+The code for random grid search MLP can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/main/src/model_trainers/1_random_search.py">here</a> and model architecture can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/9dd3e0afe27e0693bffe3035eb8e3c81fee1b0b1/src/model_trainers/model_dispatcher.py#L31">here</a>. To perform random grid search for the keras model, it was wrapped in a scikit layer using KerasClassifier<sup>[8]</sup>.<br><br> The evaluation metric used was average of F1 score and Cohen Kappa's score and the code for that can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/9dd3e0afe27e0693bffe3035eb8e3c81fee1b0b1/src/common/utilities.py#L8">here</a>. Since we are performing random grid search, we used <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/9dd3e0afe27e0693bffe3035eb8e3c81fee1b0b1/src/common/utilities.py#L16">predefined split</a> to prevents data leakage among multiple runs. A summary of the model and training is shown in below table:
 </div>
 
+| Attribute | Value |
+| ---------| -----------|
+| Number of hidden layers| 1,2,3,4,5 |
+| Number of neurons per layer| Between 1 and 2048 |
+| Activation Function| relu, selu, elu |
+| Loss| sparse categorical cross entropy |
+| Optimizer | Adam |
+| Learning Rate | Random 1000 numbers between reciprocal of 3e-4 to 3e-2 |
+|Dropout probability| 0.0, 0.1, 0.2, 0.3, 0.4, 0.5 |
+|Batch Size| 32, 64, 128, 256, 512, 1024 |
+|Epochs| 300, 600, 1000 |
+|Iterations| 25 |
 
+The best parameters found were:
+
+| Attribute | Value |
+| ---------| -----------|
+| Number of hidden layers| 5 |
+| Number of neurons per layer| 658 |
+| Activation Function| elu |
+| Loss| sparse categorical cross entropy |
+| Optimizer | Adam |
+| Learning Rate | 0.0108 |
+|Dropout probability| 0.5 |
+|Batch Size| 64 |
+|Epochs| 1000 |
 
 ### MLP using automatic hyper-parameter tuning using Optuna:
 
@@ -129,3 +157,5 @@ The code for manual MLP can be found <a href="https://github.com/sheldonsebastia
 5. https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly
 6. https://albumentations.ai/
 7. https://opencv.org/
+8. https://www.tensorflow.org/api_docs/python/tf/keras/wrappers/scikit_learn/KerasClassifier
+9. 
