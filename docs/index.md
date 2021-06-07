@@ -86,11 +86,15 @@ After the data was split into train-validation-holdout, MLP model was created an
 ### MLP using random grid search hyper-parameter tuning:
 
 <div style="text-align: justify">
+The code for manual MLP can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/main/src/model_trainers/0_manual.py">here</a> and model architecture can be found <a href="https://github.com/sheldonsebastian/Red-Blood-Cell-Classification/blob/1213635ec4cea020a2adc34459ad9911b88d43bc/src/model_trainers/model_dispatcher.py#L8">here</a>. The model uses 3 layers of 512 neurons each and contains BatchNormalization for faster convergence and Dropout to avoid dead neurons. The activation function used in each layer was 'relu' and final layer had softmax for classifying images into 4 categories. The loss used was 'sparse categorical cross entropy' and optimizer used was Adam with learning rate of 0.00001. <br><br> To avoid waiting long train time, early stopping callbacks from keras was used along with model checkpoints to save best model based on validation data. The model was trained for 5000 epochs with batch size of 1024. A summary of the model and training is shown in below table:
 </div>
+
+
 
 ### MLP using automatic hyper-parameter tuning using Optuna:
 
 <div style="text-align: justify">
+
 </div>
 
 ## Results & Analysis
