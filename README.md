@@ -1,2 +1,13 @@
-# Malaria_Classification
-Image Classification problem to identify Red Blood Cells are infected with Malaria or not
+## README
+
+### Final Report:
+
+....
+
+### Directory Structure:
+
+|Path|Description|
+|------------|-----------|
+|||
+
+### Steps to replicate project:
