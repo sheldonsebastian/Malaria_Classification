@@ -120,8 +120,6 @@ The code for random grid search MLP can be found <a href="https://github.com/she
 |Epochs| 300, 600, 1000 |
 |Iterations| 25 |
 
-<br>
-
 The best parameters found were:
 
 | Attribute | Value |
@@ -157,8 +155,6 @@ To automatically find the best parameters for MLP optuna with tensorflow-keras i
 |Epochs| 5000 |
 |Early Stopping, PruningCallBack| Yes |
 | Trials | 300 |
-
-<br>
 
 The best parameters found were:
 
