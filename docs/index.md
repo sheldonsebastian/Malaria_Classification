@@ -23,7 +23,7 @@ The goal of this project is to identify whether a red blood cell is healthy or i
     - MLP using manual hyper-parameter tuning
     - MLP using random grid search hyper-parameter tuning
     - MLP using automatic hyper-parameter tuning using Optuna
-- Results & Analysis	
+- Results 
 - Conclusion & Future Work
 - References
 
@@ -184,7 +184,7 @@ As discussed previously, since the data is severely imbalanced an <i>average of 
 
 <br>
 
-| Approach | Validation Mean of F1 and Cohen's Kappa Score | Holdout Mean of F1 and Cohen's Kappa Score | 
+| Approach | Mean of F1 and Cohen's Kappa Score for Validation set | Mean of F1 and Cohen's Kappa Score for Holdout set| 
 |Manual| 0.70 | 0.718 |
 |Random Grid Search| 0.87 | 0.717 | 
 |Optuna| 0.70 | 0.716 | 
@@ -193,24 +193,23 @@ As discussed previously, since the data is severely imbalanced an <i>average of 
 
 The confusion matrix for <b>holdout set</b> are as follows:
 
-1. Manual MLP
+- Manual MLP
 
 <center><img src="saved_images/manual_confusion_matrix_holdout.png"/></center>
 
-2. Random Grid Search MLP
+- Random Grid Search MLP
 
 <center><img src="saved_images/random_search_confusion_matrix_holdout.png"/></center>
 
-3. Optuna MLP
+- Optuna MLP
 
 <center><img src="saved_images/optuna_confusion_matrix_holdout.png"/></center>
 
 ## Conclusion and Future Work
 
-Best model and its parameters
-Approaches used and my experience with them
-CNN
-Transfer learning
+<div style="text-align: justify">
+All the models performed similarly for holdout set but for manual search the parameters needed to be iteratively tweaked which took significant amount of time. Random grid search suffered from overfitting on the validation data and Optuna trained in shorter amount of time due to pruning mechanism. In conclusion, I would recommend the model created by Optuna, since its performance is similar to other models but train time is significantly smaller. For future work, I will explore adding convolutional layers and also try transfer learning to increase model performance.    
+</div>
 
 ## References
 1. https://www.cdc.gov/parasites/malaria/index.html
