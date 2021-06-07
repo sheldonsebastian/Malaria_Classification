@@ -29,10 +29,9 @@ The goal of this project is to identify whether a red blood cell is healthy or i
 ## Introduction
 
 <div style="text-align: justify">
-Malaria is a mosquito-borne disease caused by a parasite. About 2,000 cases of malaria are diagnosed in the United States each year.<sup>[1]</sup> People with malaria often experience fever, chills, and flu-like illness. Left untreated, they may develop severe complications and die. For this project a Multi-Layer Perceptron (MLP) was used to classify blood cells into 4 different categories: red blood cell, ring, schizont and trophozoite. An image labelled as red blood cell is healthy and the rest of the labels indicate some stage of malaria infection. <br>If a model can successfully identify these types of cells from images taken with a microscope, this would allow to automate a very time-consuming testing process, leaving human doctors with more time to treat the actual disease. Furthermore, an early malaria detection can save lives!
-
+Malaria is a mosquito-borne disease caused by a parasite. About 2,000 cases of malaria are diagnosed in the United States each year.<sup>[1]</sup> People with malaria often experience fever, chills, and flu-like illness. Left untreated, they may develop severe complications and die. <br><br>For this project a Multi-Layer Perceptron (MLP) was used to classify blood cells into 4 different categories: red blood cell, ring, schizont and trophozoite. An image labelled as red blood cell is healthy and the rest of the labels indicate some stage of malaria infection. If a model can successfully identify these types of cells from images taken with a microscope, this would allow to automate a very time-consuming testing process, leaving human doctors with more time to treat the actual disease. Furthermore, an early malaria detection can save lives! A custom MLP architecture was constructed and hyper-parameter tuning was performed manually, using random-grid search and automatically using Optuna<sup>[2]</sup>.  
 </div>
 
 ## References
 1. https://www.cdc.gov/parasites/malaria/index.html
-2. 
+2. https://optuna.org/
