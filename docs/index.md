@@ -10,11 +10,9 @@ Sheldon Sebastian
 <div style="text-align: justify"> 
 
 The goal of this project is to identify whether a red blood cell is healthy or infected with any of the following stages of malaria: ring, schizont and trophozoite using a Multi-Layer Perceptron (MLP). Custom MLP was created and hyper-parameter tuning was performed on it using manual search, random grid search and automatic hyper-parameter tuning using Optuna.  
-
+</div>
 <br>
 <i>Keywords</i>: Computer Vision, Deep Learning, Image Classification, Multi Layer Perceptron
-
-</div>
 
 ## Table of Contents:
 
